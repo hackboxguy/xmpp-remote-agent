@@ -21,18 +21,18 @@ if [ $XMPP_PW = "none" ]; then
 	echo $USAGE
 	exit 1
 fi
-if [ $(id -u) -ne 0 ]; then
-        echo "run setup as root ==> sudo ./setup.sh -u <xmpp-username> -p <xmpp-pw>"
-        exit
-fi
+#if [ $(id -u) -ne 0 ]; then
+#        echo "run setup as root ==> sudo ./setup.sh -u <xmpp-username> -p <xmpp-pw>"
+#        exit
+#fi
 
 printf "Installing dependencies ................................ "
-DEBIAN_FRONTEND=noninteractive apt-get update --fix-missing < /dev/null > /dev/null
-DEBIAN_FRONTEND=noninteractive apt-get install -qq avahi-daemon avahi-discover libnss-mdns avahi-utils cmake git libjson-c-dev libgloox-dev openssl libmodbus-dev libgammu-dev usb-modeswitch < /dev/null > /dev/null
+DEBIAN_FRONTEND=noninteractive sudo apt-get update --fix-missing < /dev/null > /dev/null
+DEBIAN_FRONTEND=noninteractive sudo apt-get install -qq avahi-daemon avahi-discover libnss-mdns avahi-utils cmake git libjson-c-dev libgloox-dev openssl libmodbus-dev libgammu-dev usb-modeswitch < /dev/null > /dev/null
 test 0 -eq $? && echo "[OK]" || echo "[FAIL]"
 
 printf "Configuring xmpp-remote-agent components................ "
-cmake -H. -BOutput -DCMAKE_INSTALL_PREFIX=~/xmpp-remote-agent/out -DAUTO_SVN_VERSION=OFF 1>/dev/null 2>/dev/null
+cmake -H. -BOutput -DCMAKE_INSTALL_PREFIX=~/xmpp-remote-agent/out -DINSTALL_CLIENT=ON -DAUTO_SVN_VERSION=OFF 1>/dev/null 2>/dev/null
 test 0 -eq $? && echo "[OK]" || echo "[FAIL]"
 
 printf "Building xmpp-remote-agent components................... "
@@ -44,7 +44,7 @@ echo "user: $XMPP_USR" > ~/xmpp-remote-agent/out/etc/xmproxy/xmpp-login.txt;echo
 
 #setup auto startup script
 printf "Customizing rc.local ................................... "
-cp rc.local /etc/
+sudo cp rc.local /etc/
 test 0 -eq $? && echo "[OK]" || echo "[FAIL]"
 
 echo   "Setup completed successfully! Reboot the HW ............ "

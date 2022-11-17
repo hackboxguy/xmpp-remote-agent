@@ -17,5 +17,7 @@ if [ "$_IP" ]; then
   printf "My IP address is %s\n" "$_IP"
 fi
 su -l pi -c "export LD_LIBRARY_PATH=~/xmpp-remote-agent/out/lib;~/xmpp-remote-agent/out/bin/bboxsmsrv --boardtype=RASPI_BPLUS" &
-su -l pi -c "export LD_LIBRARY_PATH=~/xmpp-remote-agent/out/lib;~/xmpp-remote-agent/out/bin/xmproxysrv --boardtype=RASPI_BPLUS --loginfile=~/xmpp-remote-agent/out/etc/xmproxy/xmpp-login.txt --aliaslist=~/xmpp-remote-agent/out/etc/xmproxy/xmpp-alias-list.txt --botname=~/xmpp-remote-agent/out/etc/xmproxy/xmpp-bot-name.txt --usbgsm=1" &
+su -l pi -c "export LD_LIBRARY_PATH=~/xmpp-remote-agent/out/lib;~/xmpp-remote-agent/out/bin/sysmgr --boardtype=RASPI_BPLUS" &
+su -l pi -c "export LD_LIBRARY_PATH=~/xmpp-remote-agent/out/lib;~/xmpp-remote-agent/out/bin/dispsrv --iface=eth0" &
+su -l pi -c "export LD_LIBRARY_PATH=~/xmpp-remote-agent/out/lib;~/xmpp-remote-agent/out/bin/xmproxysrv --iface=eth0 --boardtype=RASPI_BPLUS --loginfile=/home/pi/xmpp-remote-agent/out/etc/xmproxy/xmpp-login.txt --aliaslist=/home/pi/xmpp-remote-agent/out/etc/xmproxy/xmpp-alias-list.txt --botname=/home/pi/xmpp-remote-agent/out/etc/xmproxy/xmpp-bot-name.txt --usbgsm=1" &
 exit 0
