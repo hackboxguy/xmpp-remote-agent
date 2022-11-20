@@ -47,4 +47,9 @@ printf "Customizing rc.local ................................... "
 sudo cp rc.local /etc/
 test 0 -eq $? && echo "[OK]" || echo "[FAIL]"
 
+#copy usb_modeswitch config for Huawei E303 and E173
+printf "Copying usb_modeswitch config files for E303/E173....... "
+sudo cp usb_modeswitch_e303_173.conf /etc/usb_modeswitch.d/12d1:1f01
+test 0 -eq $? && echo "[OK]" || echo "[FAIL]"
+
 echo   "Setup completed successfully! Reboot the HW ............ "
